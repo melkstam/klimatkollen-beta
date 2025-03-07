@@ -1,6 +1,7 @@
 import { Building2, TreePine } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Text } from "@/components/ui/text";
+import React from "react";
 
 interface RankedListProps {
   title: string;
@@ -42,30 +43,31 @@ export function RankedList({
 
       <div className="space-y-6">
         <Text className="text-md text-grey">{description}</Text>
-        {initialItems.map((item, index) => (
-          <div
-            key={item.id || index}
-            className="grid grid-cols-[auto_1fr] items-center gap-4"
-          >
-            <span
-              className={cn(
-                "text-2xl md:text-5xl font-light",
-                type === "municipality" ? "text-orange-2" : "text-blue-2"
-              )}
-            >
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <div className="grid grid-cols-1 md:grid-cols-2 items-center md:gap-4">
-              <span className="text-base md:text-lg">{item.name}</span>
+        <div
+          className="grid grid-cols-[auto_1fr] items-center gap-4"
+        >
+          {initialItems.map((item, index) => (
+            <React.Fragment key={item.id || index}>
               <span
-                className={"text-base md:text-lg md:text-right text-green-3"}
+                className={cn(
+                  "text-2xl md:text-5xl font-light",
+                  type === "municipality" ? "text-orange-2" : "text-blue-2"
+                )}
               >
-                {item.value > 0 ? "-" : ""}
-                {item.displayValue || item.value.toFixed(1)}%
+                {String(index + 1).padStart(2, "0")}
               </span>
-            </div>
-          </div>
-        ))}
+              <div className="grid grid-cols-1 md:grid-cols-2 items-center md:gap-4">
+                <span className="text-base md:text-lg">{item.name}</span>
+                <span
+                  className={"text-base md:text-lg md:text-right text-green-3"}
+                >
+                  {item.value > 0 ? "-" : ""}
+                  {item.displayValue || item.value.toFixed(1)}%
+                </span>
+              </div>
+            </React.Fragment>
+          ))}
+        </div>
       </div>
     </div>
   );
