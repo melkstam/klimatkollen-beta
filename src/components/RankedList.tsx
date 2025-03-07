@@ -2,6 +2,7 @@ import { Building2, TreePine } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Text } from "@/components/ui/text";
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface RankedListProps {
   title: string;
@@ -56,15 +57,16 @@ export function RankedList({
               >
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <div className="grid grid-cols-1 md:grid-cols-2 items-center md:gap-4">
-                <span className="text-base md:text-lg">{item.name}</span>
+
+              <Link to={type === "municipality" ? `/municipalities/${item.name}` : `/companies/${item.id}`} className="grid grid-cols-1 md:grid-cols-2 items-center md:gap-4 group/item">
+                <span className="text-base md:text-lg group-hover/item:underline">{item.name}</span>
                 <span
                   className={"text-base md:text-lg md:text-right text-green-3"}
                 >
                   {item.value > 0 ? "-" : ""}
                   {item.displayValue || item.value.toFixed(1)}%
                 </span>
-              </div>
+              </Link>
             </React.Fragment>
           ))}
         </div>
